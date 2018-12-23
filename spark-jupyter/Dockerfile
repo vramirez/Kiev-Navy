@@ -2,7 +2,7 @@ FROM ubuntu
 
 USER root
 
-ENV APACHE_SPARK_VERSION 2.3.1
+ENV APACHE_SPARK_VERSION 2.4.0
 ENV HADOOP_VERSION 2.7
 ENV ZEPPELIN_VERSION 0.8.0
 #Install basic commands like wget and sudo
