@@ -48,6 +48,7 @@ RUN curl -sSL https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64
 RUN git clone https://github.com/fastai/fastai \
     && cd fastai \
     && conda create -n fastai python=3.6 anaconda \
-    && conda env update \
+    && conda env update 
+
 EXPOSE 8080
 EXPOSE 8443
