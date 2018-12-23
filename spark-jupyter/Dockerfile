@@ -16,6 +16,9 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     sudo \
     locales \
     fonts-liberation \
+    build-essential \
+    file \
+     git \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
@@ -50,7 +53,7 @@ ENV PATH=$CONDA_DIR/bin:$PATH \
     HOME=/home/$NB_USER
 
 
-##Install conda
+##Install conda (& Python)
 
 RUN curl -sSL https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh \
     && bash /tmp/miniconda.sh -bfp /usr/local \
@@ -63,11 +66,11 @@ RUN curl -sSL https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64
     && conda clean --all --yes
 
 #Download and Install Zeppelin
-RUN wget http://www-us.apache.org/dist/zeppelin/zeppelin-${ZEPPELIN_VERSION}/zeppelin-${ZEPPELIN_VERSION}-bin-netinst.tgz \
-    && tar xzf zeppelin-${ZEPPELIN_VERSION}-bin-netinst.tgz -C /usr/local \
-    && usr/local && ln -s zeppelin-${ZEPPELIN_VERSION}-bin-netinst zeppelin
-    && cd \
-    && rm zeppelin*.tgz
+RUN wget -q http://www-us.apache.org/dist/zeppelin/zeppelin-${ZEPPELIN_VERSION}/zeppelin-${ZEPPELIN_VERSION}-bin-netinst.tgz \
+    && tar xzf zeppelin-${ZEPPELIN_VERSION}-bin-netinst.tgz -C /usr/local --owner root --group root --no-same-owner \
+    && cd /usr/local && ln -s zeppelin-${ZEPPELIN_VERSION}-bin-netinst zeppelin \
+    && cd
+#   && rm zeppelin-${ZEPPELIN_VERSION}-bin-netinst.tgz
 
 EXPOSE 8080
 EXPOSE 8443
